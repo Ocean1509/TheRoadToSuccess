@@ -1,21 +1,27 @@
-> **问题： 模拟实现new操作符。**
-> function Person() {
-  &emsp;this.age = 12;
-  }
-  Person.prototype.getAge = function() {
-    &emsp;return 23 + this.age
-  }
-  var people = myNew(Person);
-  console.log(people.age) // 12
-  console.log(people.getAge()) // 35
-  
+> 这个系列会每天推出一道前端面试题，希望感兴趣的小伙伴能一起留言探讨。
+
+## 问题
+ **模拟实现new操作符。**
+
+## 实现目标
+```
+function Person() {
+  this.age = 12;
+}
+Person.prototype.getAge = function() {
+  return 23 + this.age
+}
+var people = myNew(Person);
+console.log(people.age) // 12
+console.log(people.getAge()) // 35
+```
 
 
 ## 实现思路： 
-  - 1. 创建一个新对象
-  - 2. 将对象实例的原型指向构造函数的原型，此时对象拥有构造函数原型上的方法
-  - 3. 执行构造函数，但是改变调用执行的指向为新的对象，此时新对象的属性为构造函数定义的属性。
-  - 4. 将对象返回
+1. 创建一个新对象
+2. 将对象实例的原型指向构造函数的原型，此时对象拥有构造函数原型上的方法
+3. 执行构造函数，但是改变调用执行的指向为新的对象，此时新对象的属性为构造函数定义的属性。
+4. 将对象返回
 
 ### 简易版
 ```
@@ -66,3 +72,8 @@ function myNew1(fn, ...arg) {
   return typeof obj === 'object' || typeof obj === 'function' && obj !== null ? result : obj;
 }
 ```
+
+
+
+
+> 下一期： 如何实现JSON.parse()。敬请期待。。。
