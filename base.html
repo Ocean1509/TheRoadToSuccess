@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js基础-对象</title>
+</head>
+
+<body>
+  <script>
+    // // for in 自身和原型上可枚举的属性 -> es3
+    // // Object.keys 自身可枚举的属性 -> es5
+    // // Object.getOwnPropertyNames(): 自身可枚举，不可枚举属性 -> es5
+    // // obj.hasOwnProperty(property): 属性是否是对象自身的 -> es3
+    // //测试
+    // var parent = Object.create(Object.prototype, {
+    //   a: {
+    //     value: 2,
+    //     enumerable: true
+    //   },
+    //   b: {
+    //     value: 3,
+    //     enumerable: false
+    //   }
+    // })
+    // var child = Object.create(parent, {
+    //   c: {
+    //     value: 4,
+    //     enumerable: true
+    //   },
+    //   b: {
+    //     value: 5,
+    //     enumerable: false
+    //   }
+    // })
+    // // for in
+    // console.log('start --- for in')
+    // for(let i in child) {
+    //   console.log(i)
+    // }
+    // // Object.keys
+    // console.log('start --- Object.keys')
+    // console.log(Object.keys(child))
+    // // Object.getOwnPropertyNames()
+    // console.log('start --- Object.getOwnPropertyNames()')
+    // console.log(Object.getOwnPropertyNames(child))
+    // // obj.hasOwnProperty(属性)
+    // console.log('start --- hasOwnProperty')
+    // for(let i in child) {
+    //   if(child.hasOwnProperty(i)) {
+    //     console.log(i)
+    //   }
+    // }
+    // var a = {
+    //   'enumerable': true,
+    //   'value': true,
+    //   'writable': true,
+    //   "configurable": true
+    // }
+    // var b = {
+    //   'enumerable': true,
+    //   get() {
+
+    //   },
+    //   set() {
+
+    //   },
+    //   confiable: true
+    // }
+    // var a = {}
+    // Object.defineProperty(a, 'b', {
+    //   value: 1,
+    //   writable: true,
+    //   configurable: false
+    // })
+    // // Object.freeze(a)
+    // console.log(a)
+    // a.b = 3;
+    // console.log(a)
+    // delete a.b
+    // console.log(a)
+    // function Parent() {
+    //   this.a = 'aaa';
+    //   this.b = [1, 2, 3]
+    // }
+    // Parent.prototype.say = function () {}
+
+    // function Child() {
+    //   this.c = 12;
+    //   this.a = 1;
+    //   Parent.call(this)
+    // }
+    // Child.prototype = Object.create(Parent.prototype);
+    // Child.prototype.constructor = Child
+    // var child1 = new Child()
+    // var child2 = new Child()
+    // child1.b.push(123)
+    // console.log(child1)
+    // console.log(child2)
+    // var value = 1;
+    // function bar() {
+    //   var value = 2
+    //   function foo() {
+    //     console.log(value)
+    //   }
+    //   foo()
+    // }
+    // bar()
+    // var value = 1;
+
+    // function foo() {
+    //   console.log(value)
+    // }
+    // function bar() {
+    //   var value = 2
+    //   foo()
+    // }
+    // bar()
+    // function foo() {
+    //   console.log(a);
+    //   a = 1;
+    // }
+
+    // foo(); // ??? undefined
+
+    // function bar() {
+    //   a = 1; // 1
+    //   console.log(a);
+    // }
+    // bar(); // ???
+    // var value = 1;
+
+    // var foo = {
+    //   value: 2,
+    //   bar: function () {
+    //     return this.value;
+    //   }
+    // }
+
+    // //示例1
+    // console.log(foo.bar()); // 2
+    // //示例2
+    // console.log((foo.bar)()); // 1
+    // //示例3
+    // console.log((foo.bar = foo.bar)()); // 1
+    // //示例4
+    // console.log((false || foo.bar)()); // 1
+    // //示例5
+    // console.log((foo.bar, foo.bar)()); //  1
+
+    // function a() {
+    //   b()
+
+    //   function b() {
+    //     console.log(this)
+    //   }
+    // }
+    // a.call({
+    //   d: 12
+    // }) // window
+
+    // function a() {
+    //   b()
+    //   const b = () => {
+    //     console.log(this)
+    //   }
+    // }
+    // a.call({
+    //   d: 12
+    // }) // { d:12}
+
+
+    // function a() {
+    //   return this
+    // }
+
+    // var b = a.bind({
+    //   d: 2
+    // });
+    // console.log(b()) // {d:2}
+    // console.log(b.call({
+    //   d: 3
+    // })) // {d: 2}
+
+    //   function foo() {
+    //     console.log(a)
+    //   }
+    //   var a = 2;
+    //   var o = { a: 3, foo: foo }
+    //   var p = { a: 5, foo: foo }
+    //   // o.foo()
+    //   (p.foo = o.foo)()
+    // function foo() {
+    //   console.log(this)
+    // }
+
+    // foo(); // MemberExpression 是 foo
+
+    // function foo() {
+    //   return function () {
+    //     console.log(this)
+    //   }
+    // }
+
+    // foo()(); // MemberExpression 是 foo()
+
+    // var foo = {
+    //   bar: function () {
+    //     return this;
+    //   }
+    // }
+
+    // foo.bar(); // MemberExpression 是 foo.bar
+    // var value = 1;
+    // var foo = {
+    //   value: 2,
+    //   bar: function() {
+    //     return this.value
+    //   },
+    //   test: () => value
+    // }
+
+    // console.log(foo.bar()) // 2
+    // console.log((foo.bar)()) // 2   // 两者没有区别，调用this都是foo
+    // console.log(foo.test()) // 1    // 箭头函数在定义生效阶段已经确认
+    // console.log((foo.test)()) // 1
+    // function Foo() {
+    //   var a = function () {
+    //     console.log(1);
+    //   };
+    //   return this
+    // }
+
+    // function getName() {
+    //   console.log(5);
+    // }
+    // Foo().getName();
+    // console.log(this.a)
+    // function Foo() {
+    //   getName = function () {
+    //     console.log(1);
+    //   };
+    //   return this;
+    // }
+
+    // // Foo.prototype.getName = function () {
+    // //   console.log(3);
+    // // };
+
+    // function getName() {
+    //   console.log(5);
+    // };
+    // new Foo() //3
+    // console.log(getName)
+    // let nAdd;
+    // let t = () => {
+    //   let n = 99;
+    //   nAdd = () => {
+    //     n++;
+    //   };
+    //   let t2 = () => {
+    //     console.log(n);
+    //   };
+    //   return t2;
+    // };
+
+    // let a1 = t();
+    // let a2 = t();
+
+    // nAdd();
+    // a1(); //99
+    // a2(); //100
+
+    // var b = 10;
+    // (function b() {
+    //   b = 20;
+    //   console.log(b); // function b() {}
+    // })();
+    // console.log(b) // 10
+    // var p = (function (a) {
+    //   this.a = a;
+    //   return function (b) {
+    //     return this.a + b;
+    //   }
+    // }(function (a, b) {
+    //   return a;
+    // }(1, 2)));
+    // console.log(p(4))
+    // var fn = null;
+
+    // function foo() {
+    //   var a = 2;
+
+    //   function innnerFoo() {
+    //     console.log(c);
+    //     console.log(a);
+    //   }
+    //   fn = innnerFoo;
+    // }
+
+    // function bar() {
+    //   var c = 100;
+    //   fn();
+    // }
+
+    // foo();
+    // bar();
+    // Function.prototype.myCall = function(context) {
+    //   var context = context || window;
+    //   var rest = Array.prototype.slice.call(arguments, 1);
+    //   var fn = Symbol()
+    //   context[fn] = this;
+    //   var result = eval('context[fn](' + rest +')');
+    //   delete context[fn]
+    //   return result;
+    // }
+
+    // var b = 1;
+    // var a = {
+    //   b: 2
+    // }
+    // var c = function(d, e) {
+    //   console.log(d, e)
+    //   console.log(this.b + d + e)
+    // }
+    // c(4, 4)
+    // c.myCall(a, 4, 4)
+    // Function.prototype.myBind = function (context) {
+    //   var context = context || window;
+    //   var args = Array.prototype.slice.call(arguments, 1);
+    //   var that = this
+    //   return function () {
+    //     var argument = Array.prototype.slice.call(arguments, 0).concat(args)
+    //     return that.apply(this instanceof that ? this : context, argument)
+    //   }
+    // }
+
+    // var a = {
+    //   b: 2
+    // }
+    // var b = 1
+    // var c = function(d, e, f) {
+    //   console.log(this.b)
+    //   console.log(d, e, f)
+    // }
+    // c(3,4,5)
+    // var g = c.bind(a, 3)
+    // var l = new g(4, 5)
+    // console.log(l)
+    // var value = 2;
+
+    // var foo = {
+    //   value: 1
+    // };
+
+    // function bar(name, age) {
+    //   this.habit = 'shopping';
+    //   console.log(this.value);
+    //   console.log(name);
+    //   console.log(age);
+    // }
+
+    // bar.prototype.friend = 'kevin';
+
+    // var bindFoo = bar.bind(foo, 'daisy');
+
+    // var obj = new bindFoo('18');
+    // function MyNew(fn, ...args) {
+    //   var a = Object.create(null);
+    //   a.__proto__ = fn.prototype;
+    //   return fn.apply(a, args)
+    // }
+    var p = [2, 3];
+    var A = new Function();
+    A.prototype = p;
+
+    console.log(A.prototype)
+
+    var a = new A;
+
+    console.log(a.__proto__)
+
+    a.push(1);
+
+    console.log(a.length); // 3
+    console.log(p.length); // 2
+  </script>
+
+</body>
+
+</html>

@@ -10,9 +10,6 @@
   <div>跨域</div>
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <script>
-    // $.get('http://localhost:3001/jsonp', (err, data) => {
-    //   console.log(data)
-    // })
     // let script = document.createElement('script');
     // script.src = 'http://localhost:3001/jsonp?callback=showjsonp'
     // script.asycn = true;
@@ -22,6 +19,21 @@
     //   console.log(typeof data)
     // }
   
+
+    function jsonp({ callbackName, callback }) {
+      let script = document.createElement('script');
+      script.src = `http://localhost:3001/jsonp?callback=${callbackName}`;
+      window[callbackName] = function(data) {
+        callback(data)
+      }
+      document.body.appendChild(script)
+    }
+    jsonp({
+      callbackName: 'ddd',
+      callback(data) {
+        console.log(data)        
+      }
+    })
   </script>
 </body>
 </html>

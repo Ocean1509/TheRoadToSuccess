@@ -24,34 +24,416 @@
 
 <body>
   <!-- <script src="./test.js"></script> -->
-  <div class="outter">
-    <div class="inner"></div>
-  </div>
+  <div id="button">点击</div>
   <script>
-    var arr1 = [2, 5, 1, 51, 32, 45, 23, 12, 43, 51, 23, 5, 15, 4]
-    var arr2 = [2, 5, 23, 4, 6, 23, 1, 3, 4, 621, 3, 1, 34, 342, 6, 13, 4, 3]
+    // function Button(id) {
+    //   this.element = document.querySelector("#" + id);
+    //   this.bindEvent();
+    // }
 
-    function getArr(arr1, arr2) {
-      if (arr1.length > arr2.length) {
-        let temp = arr1;
-        arr1 = arr2;
-        arr2 = temp
-      }
-      var arr = []
-      for (let i of arr2) {
-        let idx = arr1.indexOf(i);
-        if (idx !== -1) {
-          arr.push(i);
-          arr1.splice(idx, 1)
-        }
-      }
-      return arr
-    }
+    // Button.prototype.bindEvent = function () {
+    //   this.element.addEventListener("click", this.setBgColor.bind(this), false);
+    // };
 
-    function difference(arr1, arr2) {
-      return arr1.concat(arr2).filter(v => !arr1.includes(v) || !arr2.includes(v))
-    }
-    console.log(getArr(arr1, arr2))
+    // Button.prototype.setBgColor = function () {
+    //   console.log(this)
+    //   // this.element.style.backgroundColor = '#1abc9c'
+    // };
+
+    // var button = new Button("button");
+    // 单例模式
+    // var single;
+    // function Singleton(...rest) {
+    //   if(single) return single;
+    //   function Single(rest) {
+
+    //   }
+    //   return new Single(...rest)
+    // }
+
+    // var a = new Singleton()
+    // var b = new Singleton()
+    // 普通单例模式
+    // function Singleton(age) {
+    //   this.age = age
+    // }
+    // Singleton.getInstance = function(age) {
+    //   if(this.instance) return this.instance
+    //   this.instance = new Singleton(age)
+    //   return this.instance;
+    // }
+
+    // var a = Singleton.getInstance('12')
+    // var b = Singleton.getInstance('24')
+    // console.log(a === b)
+
+
+    // // 代理单例模式
+    // var single;
+    // function Singleton(age) {
+
+    // }
+
+    // var a = new Singleton()
+    // var b = new Singleton()
+
+
+    // (function () {
+    //   var root = this;
+
+    //   var SymbolPolyfill = function Symbol(description) {
+
+    //     // 实现特性第 2 点：Symbol 函数前不能使用 new 命令
+    //     if (this instanceof SymbolPolyfill) throw new TypeError('Symbol is not a constructor');
+
+    //     // 实现特性第 5 点：如果 Symbol 的参数是一个对象，就会调用该对象的 toString 方法，将其转为字符串，然后才生成一个 Symbol 值。
+    //     var descString = description === undefined ? undefined : String(description)
+
+    //     var symbol = Object.create(null)
+
+    //     Object.defineProperties(symbol, {
+    //       '__Description__': {
+    //         value: descString,
+    //         writable: false,
+    //         enumerable: false,
+    //         configurable: false
+    //       }
+    //     });
+
+    //     // 实现特性第 6 点，因为调用该方法，返回的是一个新对象，两个对象之间，只要引用不同，就不会相同
+    //     return symbol;
+    //   }
+
+    //   root.SymbolPolyfill = SymbolPolyfill;
+
+    //   var a = SymbolPolyfill('123')
+    //   console.log(a)
+    // })();
+
+    // var a = {
+    //   d: 1,
+    //   b: 2,
+    //   [Symbol.iterator]: function*() {
+    //     yield 1
+    //     yield 2
+    //   }
+    // }
+
+    // for(let i of a) {
+    //   console.log(i)
+    // }
+
+    // 模拟迭代器
+    // function makeIterator(arr) {
+    //   var i = 0;
+    //   return {
+    //     next: function() {
+    //       return {
+    //         value: arr.length === i + 1 ? undefined : arr[i++],
+    //         done: arr.length === i ? true : false
+    //       }
+    //     }
+    //   }
+    // }
+    // var it = makeIterator([1, 2, 3])
+    // console.log(it.next())
+    // console.log(it.next())
+    // console.log(it.next())
+    // var a = [1,2,3,4]
+    // console.log(a.__proto__)
+    // var iterator = a[Object.getOwnPropertySymbols(a.__proto__)[0]]();
+    // console.log(iterator.next())
+    // console.log(iterator.next())
+    // console.log(iterator.next())
+    // console.log(iterator.next())
+    // console.log(iterator.next())
+
+    // console.log(a['Symbol(Symbol.iterator)'])
+    // var obj = {
+    //   b: 1,
+    //   c: 2
+    // }
+
+    // var aIterator = makeIterator(obj)
+    // function makeIterator(o) {
+    //   var obj = Object.keys(o);
+    //   var i = 0;
+    //   return {
+    //     next: function() {
+    //       return {
+    //         value: obj[i++],
+    //         done: i - 1 >= obj.length ? true : false
+    //       }
+    //     }
+    //   }
+    // }
+    // obj[Symbol.iterator] = function() {
+    //   return makeIterator(obj)
+    // }
+    // for(let i of obj) {
+    //   console.log(i)
+    // }
+    // console.log(aIterator.next())
+    // console.log(aIterator.next())
+    // console.log(aIterator.next())
+    // console.log(aIterator.next())
+    // function forOf(obj, cb) {
+    //   let iterable, result;
+
+    //   if (typeof obj[Symbol.iterator] !== "function")
+    //     throw new TypeError(result + " is not iterable");
+    //   if (typeof cb !== "function") throw new TypeError("cb must be callable");
+
+    //   iterable = obj[Symbol.iterator]();
+
+    //   result = iterable.next();
+    //   while (!result.done) {
+    //     cb(result.value);
+    //     result = iterable.next();
+    //   }
+    // }
+    // var weakM = new WeakMap()
+    // var arr = new Array(1000000)
+    // weakM.set(arr, 1)
+    // console.log(weakM)
+    // arr = null;
+    // setTimeout(() => {
+    //   console.log(weakM)
+    // }, 1000);
+
+    // // 题目：红灯三秒亮一次，绿灯一秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？（用 Promse 实现）
+    // var green = function () {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       console.log('green')
+    //       resolve('green')
+    //     }, 1000);
+    //   })
+    // }
+
+    // var yellow = function () {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       console.log('yellow')
+    //       resolve('yellow')
+    //     }, 2000);
+    //   })
+    // }
+
+    // var red = function () {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       console.log('red')
+    //       resolve('red')
+    //     }, 3000);
+    //   })
+    // }
+
+    // var step = function() {
+    //   Promise.all([red(), yellow(), green()]).then(() => {
+    //     step()
+    //   })
+    // }
+
+    // step()
+    // Promise.all(task).then(() => { task() })
+
+
+    // var promiseA = function() {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       reject('a')
+    //     }, 2000);
+    //   })
+    // }
+    // var promiseB = function() {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //         console.log('b')
+    //         resolve(promiseA())
+    //     }, 1000);
+    //   })
+    // }
+
+    // promiseB().then(res => {
+    //   console.log(res)
+    // }).catch(err => {
+    //   console.error(err)
+    // })
+    // var promiseA = function() {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       reject(1)
+    //     }, 1000);
+    //   })
+    // }
+    // console.log('start')
+    // Promise.resolve(promiseA()).then(res => {
+    //   console.log(res)
+    // })
+    // console.log('end')
+    // var p1 = new Promise(function (resolve, reject) {
+    //   resolve(1);
+    // });
+    // var p2 = new Promise(function (resolve, reject) {
+    //   setTimeout(function () {
+    //     resolve(2);
+    //   }, 500);
+    // });
+    // var p3 = new Promise(function (resolve, reject) {
+    //   setTimeout(function () {
+    //     reject(3);
+    //   }, 500);
+    // });
+
+    // console.log(p1); //Promise resolve
+    // console.log(p2); // Promse pending
+    // console.log(p3); // Promise pending
+    // setTimeout(function () {
+    //   console.log(p2);
+    // }, 1000);
+    // setTimeout(function () {
+    //   console.log(p3);
+    // }, 1000);
+
+    // p1.then(function (value) {
+    //   console.log(value);
+    // });
+    // p2.then(function (value) {
+    //   console.log(value);
+    // });
+    // p3.catch(function (err) {
+    //   console.log(err);
+    // });
+    // 1, 2, 3, Promise resolve, Promise reject
+    // var p1 = new Promise(function (resolve, reject) {
+    //   resolve("success1");
+    //   resolve("success2");
+    // });
+
+    // var p2 = new Promise(function (resolve, reject) {
+    //   resolve("success");
+    //   reject("reject");
+    // });
+
+    // p1.then(function (value) {
+    //   console.log(value); // success1
+    // });
+
+    // p2.then(function (value) {
+    //   console.log(value); // success
+    // });
+
+    // var p = new Promise(function (resolve, reject) {
+    //   resolve(1);
+    // });
+    // p.then(function (value) { //第一个then
+    //   console.log(value); // 1
+    //   return value * 2; 
+    // }).then(function (value) { //第二个then
+    //   console.log(value); // 2
+    // }).then(function (value) { //第三个then
+    //   console.log(value); // undefined
+    //   return Promise.resolve('resolve');
+    // }).then(function (value) { //第四个then
+    //   console.log(value); // resolve
+    //   return Promise.reject('reject');
+    // }).then(function (value) { //第五个then
+    //   console.log('resolve: ' + value);
+    // }, function (err) {
+    //   console.log('reject: ' + err); // reject: reject
+    // })
+
+
+    // var p1 = new Promise(function (resolve, reject) {
+    //   foo.bar();
+    //   resolve(1);
+    // });
+
+    // p1.then(
+    //   function (value) {
+    //     console.log('p1 then value: ' + value);
+    //   },
+    //   function (err) {
+    //     console.log('p1 then err: ' + err);
+    //   }
+    // ).then(
+    //   function (value) {
+    //     console.log('p1 then then value: ' + value);
+    //   },
+    //   function (err) {
+    //     console.log('p1 then then err: ' + err);
+    //   }
+    // );
+
+    // var p2 = new Promise(function (resolve, reject) {
+    //   resolve(2);
+    // });
+
+    // p2.then(
+    //   function (value) {
+    //     console.log('p2 then value: ' + value); // 1
+    //     foo.bar();
+    //   },
+    //   function (err) {
+    //     console.log('p2 then err: ' + err);
+    //   }
+    // ).then(
+    //   function (value) {
+    //     console.log('p2 then then value: ' + value);
+    //   },
+    //   function (err) {
+    //     console.log('p2 then then err: ' + err); // err
+    //     return 1;
+    //   }
+    // ).then(
+    //   function (value) {
+    //     console.log('p2 then then then value: ' + value);
+    //   },
+    //   function (err) {
+    //     console.log('p2 then then then err: ' + err);
+    //   }
+    // );
+
+
+    // const p1 = new Promise(function (resolve, reject) {
+    //   resolve(1)
+    // });
+
+    // const p3 = Promise.resolve(3)
+    // const p2 = new Promise(function (resolve, reject) {
+    //   resolve(p3);
+    // })
+
+    // p2.then(res => {
+    //   console.log('p2: ' + res)
+    // })
+    // p3.then(res => {
+    //   console.log('p1:' + res)
+    // })
+
+
+    // console.log('end')
+    
+      // function* test() {
+      //   var a = yield 4;
+      //   console.log(a)
+      //   yield a + 2
+      //   return a
+      // }
+      // var t = test()
+      // console.log(t.next())
+      // console.log(t.next(2))
+      // console.log(t.next())
+      console.time('time');
+      setInterval(() => {
+        console.log('gu')
+      }, 1000);
+      var i = 2500000000
+      while(i) {
+        i--
+      }
+      console.timeEnd('time');
   </script>
 </body>
 

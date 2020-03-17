@@ -61,6 +61,7 @@ Function.prototype.myBind = function (context, ...args) {
 }
 
 
+
 // 偏函数的实现 -  类似bind
 // 函数柯里化的实现
 function curry(fn) {
@@ -313,3 +314,92 @@ class MyVue {
 // 组件v-model
 // <child v-model="change"></child>
 // <div @input="dd" :value="value"></div>
+
+
+// flex-direction, flex-wrap, flex-flow
+// 反转单向链表
+
+function reverseList(list) {
+  if(!list.next) return list
+  var pre = null;
+  var current = list;
+  var next
+  while(current) {
+    next = current.next;
+    current.next = pre;
+    pre = current;
+    current = next;
+  }
+  return pre
+}
+
+
+var list = { value: 1, next: { value: 2, next: { value: 3, next: null }}}
+console.log(reverseList(list))
+
+
+// 给定一个不重复d的数字数组，找出该数组中两个数之和为0的所有情况
+var a = [1,2,3,4,-3,-1];
+var result = [[3, -3], [1, -1]];
+
+
+// 模拟迭代器
+
+
+
+// 实现一个sleep暂停函数
+function sleep(seconds) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, seconds)
+  })
+}
+
+// sleep函数使用
+async function main() {
+  //···
+  await sleep(400)
+}
+
+// 防抖
+function debounce(fn, delay) {
+  let timer = null
+  return function() {
+    if(timer) clearTimeout(timer)
+    timer = setTimeout(fn, delay);
+  }
+}
+
+// 节流
+function throttle(fn, delay) {
+  let timer = null;
+  return function() {
+    if(flag) return;
+    flag = false;
+    timer = setTimeout(() => {
+      fn.apply(this)
+      let flag = true;
+    }, delay);
+  }
+}
+
+// 拍平
+function flat1(arr) {
+  return arr.reduce((current, prev) => {
+    return current.concat(Array.isArray(pre) ? flat1(pre) : prev)
+  }, [])
+}
+
+function flat(arr) {
+  return arr.reduce((current, pre) => {
+    return current.concat(Array.isArray(pre) ? flat(pre) : pre)
+  }, [])
+}
+
+
+
+
+// websocket
+// 设计模式
+// 组件
+// vuex vue-router
+// 项目
